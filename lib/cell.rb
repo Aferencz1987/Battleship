@@ -16,6 +16,10 @@ class Cell
     @empty = false
   end
 
+  def ship_placed?
+    return true if @ship == ship
+  end
+
   def fired_upon?
     @fired_upon
   end
@@ -31,17 +35,26 @@ class Cell
     end
   end
 
-  def render   #(render = false)
+  def render(render = false)
+    if render(false)
+      if @fired_upon == true && @empty == true
+        miss_cell_message
+      else @fired_upon == false && @empty == false 
+        hit_cell_message
+      end
+        else @fired_upon == false
+          blank_cell_message
+    end
+###########
     if @fired_upon == true
       if @empty == true
         miss_cell_message
       else @empty == false
         hit_cell_message
       end
-    # elsif @fired_upon == false && render(true)
-    #     show_ship
-    else @fired_upon == false
+      else @fired_upon == false && render(true)
         blank_cell_message
+        elsif render(true)
     end
   end
 
