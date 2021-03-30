@@ -31,28 +31,19 @@ class Cell
     end
   end
 
-  def render(render = false)
-      if @fired_upon == true
-        if @empty == true
-          miss_cell_message
-        else @empty == false
-          hit_cell_message
-        end
-      elsif @fired_upon == false && render(true)
-        show_ship
-      else @fired_upon == false && render
+  def render   #(render = false)
+    if @fired_upon == true
+      if @empty == true
+        miss_cell_message
+      else @empty == false
+        hit_cell_message
+      end
+    # elsif @fired_upon == false && render(true)
+    #     show_ship
+    else @fired_upon == false
         blank_cell_message
-      end
-      end
-    # if render(true) && @empty == false
-    #   p "S"
-    #   break
-    # end
+    end
   end
-
-  # def render_changer
-  #   render(true)
-  # end
 
   def blank_cell_message
     "."
