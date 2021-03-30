@@ -25,33 +25,34 @@ class Cell
     if ship != nil && ship.health > 0
       ship.hit
     elsif ship == nil
-      p "ship is nil"
+      @ship = 0
     elsif ship.health == 0
       p "health is zero"
     end
   end
 
-  def render
-    # if @ship != nil
-    #   if @fired_upon == true && @empty == true
-    #     miss_cell_message
-    #   elsif @fired_upon == true && @empty == false
-    #     hit_cell_message
-    #   else
-    #     p "You fucked up!"
-    #   end
-    # elsif @ship == nil && @fired_upon == false
-
-    if @fired_upon == true
-      if @empty == true
-        miss_cell_message
-      else @empty == false
-        hit_cell_message
+  def render(render = false)
+      if @fired_upon == true
+        if @empty == true
+          miss_cell_message
+        else @empty == false
+          hit_cell_message
+        end
+      elsif @fired_upon == false && render(true)
+        show_ship
+      else @fired_upon == false && render
+        blank_cell_message
       end
-    elsif @fired_upon == false
-      blank_cell_message
-    end
+      end
+    # if render(true) && @empty == false
+    #   p "S"
+    #   break
+    # end
   end
+
+  # def render_changer
+  #   render(true)
+  # end
 
   def blank_cell_message
     "."
@@ -64,4 +65,20 @@ class Cell
   def hit_cell_message
     "H"
   end
+
+  def show_ship
+    "S"
+  end
+
+
 end
+
+# if @ship != nil
+#   if @fired_upon == true && @empty == true
+#     miss_cell_message
+#   elsif @fired_upon == true && @empty == false
+#     hit_cell_message
+#   else
+#     p "You fucked up!"
+#   end
+# elsif @ship == nil && @fired_upon == false
