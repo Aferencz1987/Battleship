@@ -46,17 +46,14 @@ RSpec.describe Cell do
     cell_2.place_ship(cruiser)
     cell_2.render
     expect(cell_2.render(true)).to eq("S")
-    # require "pry"; binding.pry
     cell_2.fire_upon
     expect(cell_2.render).to eq("H")
-    # require "pry"; binding.pry
   end
 
   it 'sinks a ship' do
     cell_2 = Cell.new("C3")
     cruiser = Ship.new("Cruiser", 3)
     cell_2.place_ship(cruiser)
-    # require "pry"; binding.pry
     expect(cell_2.render).to eq(".")
     expect(cell_2.render(true)).to eq("S")
     cell_2.fire_upon
