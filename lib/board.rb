@@ -21,4 +21,14 @@ class Board
       "D4" => Cell.new("D4")
     }
   end
+
+  def valid_coordinate?(coordinates)
+    result = false
+    cells.each do |name_key, cell_info|
+      if cell_info.coordinate.include?(coordinates)
+         result = true
+      end
+    end
+    result
+  end
 end
