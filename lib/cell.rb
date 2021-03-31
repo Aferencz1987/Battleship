@@ -47,6 +47,7 @@ class Cell
       "H"
     else !@empty && ship.sunk?
       "X"
+
     end
 
   end
