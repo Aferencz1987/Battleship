@@ -38,10 +38,12 @@ class Cell
       "S"
     elsif @empty && @fired_upon
       "M"
-    elsif !@empty && @fired_upon
+    elsif !@empty && @fired_upon && !ship.sunk?
       "H"
-    else !@empty && ship.sunk?
+    elsif !@empty && ship.sunk?
       "X"
+    else
+      "."
     end
   end
 end
