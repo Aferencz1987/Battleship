@@ -33,7 +33,7 @@ class Board
   end
 
   def valid_placement?(boat, coordinates)
-    length_check(boat, coordinates)
+    length_check(boat, coordinates) && consecutive_check(boat, coordinates) && !backwards?(boat, coordinates)
     # boat.length == coordinates.length
   end
 
@@ -44,7 +44,6 @@ class Board
   def consecutive_check(boat,coordinates)
     result = []
     coordinates.each do |coordinate|
-      # require "pry"; binding.pry
       result.push(coordinate.split(''))
     end
     letters = []
@@ -52,17 +51,63 @@ class Board
     result.each do |split_coordinate|
       letters.push(split_coordinate[0]) && numbers.push(split_coordinate[1])
     end
-    letters
-    require "pry"; binding.pry
+    result = false
+    numbers.each_cons(2) do |number|
+     if number[1].to_i - number[0].to_i == -1
+       if letters.uniq.count == 1 || numbers.uniq.count == 1
+         result = true
+         # require "pry"; binding.pry
+       end
+     end
+    end
+    result
+  end
+
+  def backwards?(boat, coordinates)
+    result = []
+    coordinates.each do |coordinate|
+      result.push(coordinate.split(''))
+    end
+    letters = []
+    numbers = []
+    result.each do |split_coordinate|
+      letters.push(split_coordinate[0]) && numbers.push(split_coordinate[1])
+    end
+    result = false
+    numbers.each_cons(2) do |number|
+      number[1].to_i - number[0].to_i == 1
+      result = true
+    end
+    result
   end
 end
+
+
+
+
+
+
+
+
 # different number same letter spoiler, it worked!
 # numbers.each_cons(2) do |number|
 #  if number[1].to_i - number[0].to_i == -1
-#    if letters.uniq.count == 1
+#    if letters.uniq.count == 1 || numbers.uniq.count == 1
 #      p 'sucess diff num same letter'
 #    else
 #      p 'this didnt work'
 #    end
 #  end
+# end
+# mess with the one below!!!!!
+
+# def test(boat, coordinate)
+#   result = false
+#   numbers.each_cons(2) do |number|
+#    if number[1].to_i - number[0].to_i == -1
+#      if letters.uniq.count == 1 || numbers.uniq.count == 1
+#        result = true
+#      end
+#    end
+#   end
 # end
