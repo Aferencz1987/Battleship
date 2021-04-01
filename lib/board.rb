@@ -21,4 +21,38 @@ class Board
       "D4" => Cell.new("D4")
     }
   end
+
+  def valid_coordinate?(coordinates)
+    result = false
+    cells.each do |name_key, cell_info|
+      if cell_info.coordinate.include?(coordinates)
+         result = true
+      end
+    end
+    result
+  end
+
+  def valid_placement?(boat, coordinates)
+    length_check(boat, coordinates)
+    # boat.length == coordinates.length
+  end
+
+  def length_check(boat, coordinates)
+    boat.length == coordinates.length
+  end
+
+  def consecutive_check(boat,coordinates)
+    result = []
+    coordinates.each do |coordinate|
+      # require "pry"; binding.pry
+      result.push(coordinate.split(''))
+    end
+    letters = []
+    numbers = []
+    result.each do |split_coordinate|
+      letters.push(split_coordinate[0]) && numbers.push(split_coordinate[1])
+    end
+    letters
+    require "pry"; binding.pry
+  end
 end
