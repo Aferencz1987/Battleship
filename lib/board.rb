@@ -56,3 +56,13 @@ class Board
     require "pry"; binding.pry
   end
 end
+# different number same letter spoiler, it worked!
+# numbers.each_cons(2) do |number|
+#  if number[1].to_i - number[0].to_i == -1
+#    if letters.uniq.count == 1
+#      p 'sucess diff num same letter'
+#    else
+#      p 'this didnt work'
+#    end
+#  end
+# end
