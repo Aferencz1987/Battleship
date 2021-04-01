@@ -31,4 +31,28 @@ class Board
     end
     result
   end
+
+  def valid_placement?(boat, coordinates)
+    length_check(boat, coordinates)
+    # boat.length == coordinates.length
+  end
+
+  def length_check(boat, coordinates)
+    boat.length == coordinates.length
+  end
+
+  def consecutive_check(boat,coordinates)
+    result = []
+    coordinates.each do |coordinate|
+      # require "pry"; binding.pry
+      result.push(coordinate.split(''))
+    end
+    letters = []
+    numbers = []
+    result.each do |split_coordinate|
+      letters.push(split_coordinate[0]) && numbers.push(split_coordinate[1])
+    end
+    letters
+    require "pry"; binding.pry
+  end
 end
