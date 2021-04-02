@@ -95,11 +95,11 @@ class Board
 end
 
 
-same letters
-letters[1].to_i - letters[0].to_i == 0 && numbers[1] - numbers[0] == 1 && letters.uniq.count == 1 || numbers.uniq.count == 1
-||
-letters[1].to_i - letters[0].to_i == 1 && numbers[1] - numbers[0] == 0 && letters.uniq.count == 1 || numbers.uniq.count == 1
-same numbers
+# same letters horizontal_placement?
+# letters[1].to_i - letters[0].to_i == 0 && numbers[1] - numbers[0] == 1 && letters.uniq.count == 1 || numbers.uniq.count == 1
+# ||
+# letters[1].to_i - letters[0].to_i == 1 && numbers[1] - numbers[0] == 0 && letters.uniq.count == 1 || numbers.uniq.count == 1
+# same numbers verticle_placement
 
 
 
@@ -152,14 +152,6 @@ same numbers
   #   end
   #   result
   # end
-
-
-# if letters[1].to_i - letters[0].to_i == 0 && numbers[1] - numbers[0] == 1 || letters[1].to_i - letters[0].to_i == 1 && numbers[1] - numbers[0] == 0
-
-# letter[0] - letter[1] == 0 && numbers[0] - numbers[1] == 1
-# or
-# letters[0] - letters[1] == 1 && numbers[0] - numbers[1] == 0
-
 
 
 
