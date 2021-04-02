@@ -46,53 +46,73 @@ class Board
     boat.length == coordinates.length
   end
 
-  # def cnc(boat,coordinates)
-  #   result = []
-  #   coordinates.each do |coordinate|
-  #     result.push(coordinate.split(''))
-  #   end
-  #   letters = []
-  #   numbers = []
-  #   result.each do |split_coordinate|
-  #     letters.push(split_coordinate[0].ord) && numbers.push(split_coordinate[1].to_i)
-  #   end
-  #   results = false
-  #   numbers.each_cons(2) do |number|
-  #     # require "pry"; binding.pry
-  #     if number[1].to_i - number[0].to_i == 1
-  #       if letters.uniq.count == 1 || numbers.uniq.count == 1
-  #         results = true
-  #       end
-  #     end
-  #   end
-  #   results
-  # end
 
-  def clc(boat,coordinates)
-    result = []
-    coordinates.each do |coordinate|
-      result.push(coordinate.split(''))
+  def consecutive_numbers?(coordinates)
+    @num = coordinates.map do |coordinate|
+      coordinate[1].to_i
     end
-    letters = []
-    numbers = []
-    result.each do |split_coordinate|
-      letters.push(split_coordinate[0].ord) && numbers.push(split_coordinate[1].to_i)
+    @num.each_cons(2).all? do |a,b|
+      b == a + 1
     end
-    results = false
-    letters.each_cons(2) do |letter|
-      if letter[1] - letter[0] == 1
-        numbers.each_cons(2) do |number|
-          if number[1].to_i - number[0].to_i == 0
-            if letters.uniq.count == 1 || numbers.uniq.count == 1
-          results = true
-            end
-          end
-        end
-      end
+  end
+
+  def consecutive_letters?(coordinates)
+    @num = coordinates.map do |coordinate|
+      coordinate[0].ord
     end
-    results
+    @num.each_cons(2).all? do |a,b|
+      b == a + 1
+    end
   end
 end
+
+#   def cnc(boat,coordinates)
+#     result = []
+#     coordinates.each do |coordinate|
+#       result.push(coordinate.split(''))
+#     end
+#     letters = []
+#     numbers = []
+#     result.each do |split_coordinate|
+#       letters.push(split_coordinate[0].ord) && numbers.push(split_coordinate[1].to_i)
+#     end
+#     results = false
+#     numbers.each_cons(2) do |number|
+#       # require "pry"; binding.pry
+#       if number[1].to_i - number[0].to_i == 1
+#         if letters.uniq.count == 1 || numbers.uniq.count == 1
+#           results = true
+#         end
+#       end
+#     end
+#     results
+#   end
+#
+#   def clc(boat,coordinates)
+#     result = []
+#     coordinates.each do |coordinate|
+#       result.push(coordinate.split(''))
+#     end
+#     letters = []
+#     numbers = []
+#     result.each do |split_coordinate|
+#       letters.push(split_coordinate[0].ord) && numbers.push(split_coordinate[1].to_i)
+#     end
+#     results = false
+#     letters.each_cons(2) do |letter|
+#       if letter[1] - letter[0] == 1
+#         numbers.each_cons(2) do |number|
+#           if number[1].to_i - number[0].to_i == 0
+#             if letters.uniq.count == 1 || numbers.uniq.count == 1
+#           results = true
+#             end
+#           end
+#         end
+#       end
+#     end
+#     results
+#   end
+# end
 
 
 # same letters horizontal_placement?
