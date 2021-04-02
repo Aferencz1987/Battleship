@@ -95,9 +95,11 @@ class Board
 end
 
 
-
-# if letters[1].to_i - letters[0].to_i == 0 && numbers[1] - numbers[0] == 1 || letters[1].to_i - letters[0].to_i == 1 && numbers[1] - numbers[0] == 0
-
+same letters
+letters[1].to_i - letters[0].to_i == 0 && numbers[1] - numbers[0] == 1 && letters.uniq.count == 1 || numbers.uniq.count == 1
+||
+letters[1].to_i - letters[0].to_i == 1 && numbers[1] - numbers[0] == 0 && letters.uniq.count == 1 || numbers.uniq.count == 1
+same numbers
 
 
 
