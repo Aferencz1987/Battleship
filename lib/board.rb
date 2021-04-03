@@ -60,9 +60,7 @@ class Board
   end
 
   def consecutive_check(boat, coordinates)
-    # consecutive_letters?(boat, coordinates) ||
-    # consecutive_numbers?(boat, coordinates)
-     (!consecutive_numbers?(boat, coordinates) && consecutive_letters?(boat, coordinates)) ||
+    (!consecutive_numbers?(boat, coordinates) && consecutive_letters?(boat, coordinates)) ||
     (consecutive_numbers?(boat, coordinates) && !consecutive_letters?(boat, coordinates))
   end
 
@@ -95,5 +93,9 @@ class Board
     else
       false
     end
+  end
+
+  def place(boat, coordinates)
+
   end
 end
