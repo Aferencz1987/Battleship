@@ -95,7 +95,10 @@ class Board
     end
   end
 
-  def place(boat, coordinates)
-
+  def place(boat, coordinates_array)
+    coordinates_array.each do |coordinate|
+      @cells[coordinate].place_ship(boat)
+    require "pry"; binding.pry
+    end
   end
 end
