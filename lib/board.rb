@@ -33,6 +33,7 @@ class Board
   end
 
   def valid_placement?(boat, coordinates)
+    overlap?(boat, coordinates) &&
     (length_check(boat, coordinates) && consecutive_check(boat, coordinates)) &&
     (letter_check(boat, coordinates) || number_check(boat, coordinates))
   end
@@ -97,8 +98,28 @@ class Board
 
   def place(boat, coordinates_array)
     coordinates_array.each do |coordinate|
-      @cells[coordinate].place_ship(boat)
-    require "pry"; binding.pry
+      if @cells[coordinate].ship == nil
+        @cells[coordinate].place_ship(boat)
+      end
+    end
+  end
+
+  def overlap?(boat, coordinates_array)
+    coordinates_array.all? do |coordinate|
+      @cells[coordinate].empty?
     end
   end
 end
+
+# @cells.each do |cell, data|
+#   if data.ship != nil
+#     used_cells.push(cell)
+#   end
+# end
+# redbull = coordinates_array.uniq + @used_cells.flatten
+# # redbull.count == redbull.uniq.count
+# if redbull.uniq.count % redbull.count != 0
+#   false
+# end
+
+# require "pry"; binding.pry

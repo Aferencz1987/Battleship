@@ -114,8 +114,30 @@ RSpec.describe Board do
       expect(cell_3.ship == cell_2.ship).to eq(true)
     end
 
-    it 'check validity_overlap' do
+    it 'will not reassign' do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+      submarine = Ship.new("Submarine", 2)
+      board.place(cruiser, ["A1", "A2", "A3"])
+      cell_1 = board.cells["A1"]
+      expect(cell_1.ship).to eq(cruiser)
+      board.place(submarine, ["A1", "B1"])
+      expect(cell_1.ship).to eq(cruiser)
+      expect(board.valid_placement?(submarine, ["A1", "B1"])).to eq(false)
+    end
 
+
+    it 'will detect overlap' do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+      submarine = Ship.new("Submarine", 2)
+      board.place(cruiser, ["A1", "A2", "A3"])
+      cell_1 = board.cells["A1"]
+      expect(cell_1.ship).to eq(cruiser)
+      board.place(submarine, ["A1", "B1"])
+      expect(board.overlap?(submarine, ["A1", "B1"])).to eq(false)
+      board.place(submarine, ["C1", "D1"])
+      expect(board.overlap?(submarine, ["C1", "D1"])).to eq(false)
     end
   end
 end
