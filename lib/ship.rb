@@ -4,14 +4,13 @@ class Ship
     @name = name_parameter
     @length = length_parameter
     @health = length_parameter
-    @sunk = false
   end
 
   def sunk?
     if @health > 0
-      sunk = false
+      false
     else @health == 0
-      sunk = true
+      true
     end
   end
 
