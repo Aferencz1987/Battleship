@@ -38,7 +38,6 @@ RSpec.describe Board do
     it 'compares length' do
       board = Board.new
       cruiser = Ship.new("Cruiser", 3)
-      submarine = Ship.new("Submarine", 2)
 
       expect(board.length_check(cruiser, ["A1", "A2"])).to eq(false)
       expect(board.length_check(cruiser, ["A1", "A2", "A3"])).to eq(true)
@@ -71,7 +70,6 @@ RSpec.describe Board do
     it 'helper method tests' do
       board = Board.new
       cruiser = Ship.new("Cruiser", 3)
-      submarine = Ship.new("Submarine", 2)
 
       expect(board.consecutive_numbers?(cruiser, ["A1", "A2", "A3"])).to eq(true)
       expect(board.consecutive_letters?(cruiser, ["A1", "B1", "C1"])).to eq(true)
