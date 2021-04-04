@@ -11,13 +11,13 @@ class Cell
     @empty
   end
 
-  def place_ship(ship)
-    @ship = ship
+  def place_ship(boat)
+    @ship = boat
     @empty = false
   end
 
   def ship_placed?
-    return true if @ship == ship
+    return true if @ship == ship #!!!!!!! Here is the problem if ship/boat stuff is not placed
   end
 
   def fired_upon?
