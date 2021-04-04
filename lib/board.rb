@@ -109,17 +109,23 @@ class Board
       @cells[coordinate].empty?
     end
   end
+
+  def render(unhide = false)
+    if unhide == false
+      board = "  1 2 3 4 \nA #{@cells["A1"].render} #{@cells["A2"].render} #{@cells["A3"].render} #{@cells["A4"].render} \n" +
+      "B #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render} \n" +
+      "C #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render} \n" +
+      "D #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render} \n"
+      # puts board
+
+    else
+
+      board = "  1 2 3 4 \nA #{@cells["A1"].render(unhide)} #{@cells["A2"].render(unhide)} #{@cells["A3"].render(unhide)} #{@cells["A4"].render(unhide)} \n" +
+      "B #{@cells["B1"].render(unhide)} #{@cells["B2"].render(unhide)} #{@cells["B3"].render(unhide)} #{@cells["B4"].render(unhide)} \n" +
+      "C #{@cells["C1"].render(unhide)} #{@cells["C2"].render(unhide)} #{@cells["C3"].render(unhide)} #{@cells["C4"].render(unhide)} \n" +
+      "D #{@cells["D1"].render(unhide)} #{@cells["D2"].render(unhide)} #{@cells["D3"].render(unhide)} #{@cells["D4"].render(unhide)} \n"
+      # puts board
+    end
+    board
+  end
 end
-
-# @cells.each do |cell, data|
-#   if data.ship != nil
-#     used_cells.push(cell)
-#   end
-# end
-# redbull = coordinates_array.uniq + @used_cells.flatten
-# # redbull.count == redbull.uniq.count
-# if redbull.uniq.count % redbull.count != 0
-#   false
-# end
-
-# require "pry"; binding.pry
