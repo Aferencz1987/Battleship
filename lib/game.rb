@@ -1,24 +1,47 @@
 class Game
-  attr_reader :response
+  # attr_reader :response, :board, :messages
   def initialize
-    @messages = Messages.new
-    @board = Board.new
-    @response = ""
-
+    # @messages = Messages.new
+    # @board = Board.new
+    # @response = ""
   end
 
-  def start
-    computer.random_boat
-     puts @messages.welcome_message +
-      @messages.printz
-      response = gets.chomp
-      if response == 'p'
-      #do game stuff
-    elsif response == 'q'
-        @messages.quit_message
-    end
-    response
-  end
+  # def start
+  #   #start should render the board
+  #  puts @messages.welcome_message +
+  #   @messages.printz
+  #   response = gets.chomp
+  #   if response == 'p'
+  #   #do game stuff
+  #   # elsif response == 'q'
+  #   #   @messages.quit_message
+  #   end
+  #   # # response
+  # end
+  #
+  # def computer_feedback
+  #   if cell.render == "M"
+  #     "miss"
+  #   elsif
+  #     cell.render == "H"
+  #     "hit"
+  #   else
+  #     cell.render == "X"
+  #     "ship has been sunk"
+  #   end
+  # end
+  #
+  # def winner
+  #   return "human" if
+  #   require "pry"; binding.pry
+  #     player.ship.all? |boat|
+  #     boat.sunk? == true
+  #   return "computer" if
+  #     computer.ship.all? |boat|
+  #     boat.sunk? == true
+  # end
+end
+# end
 
   # def random_boat
   #   choices = [submarine, cruiser]
@@ -46,6 +69,3 @@ class Game
   #     computer_place_submarine
   #   end
   # end
-
-
-end
