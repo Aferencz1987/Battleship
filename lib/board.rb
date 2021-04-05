@@ -52,7 +52,7 @@ class Board
   end
 
   def consecutive_letters?(boat, coordinates)
-    @let= coordinates.map do |coordinate|
+    @let = coordinates.map do |coordinate|
       coordinate[0].ord
     end
     @let.each_cons(2).all? do |a,b|

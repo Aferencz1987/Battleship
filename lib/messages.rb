@@ -1,5 +1,4 @@
 class Messages
-  attr_reader :welcome_message
   def initialize
   end
 
@@ -16,6 +15,7 @@ class Messages
     ">"
   end
 
+
   def invalid_placement_message
     "Nah bro, those coordinates aren't valid. Let's try again, shall we?"
   end
@@ -26,5 +26,9 @@ class Messages
     #elsif ______HUMAN___
     "Humans 1, AI 0!"
     #end
+  end
+
+  def quit_message
+    "Okay fine! Go live your life."
   end
 end
