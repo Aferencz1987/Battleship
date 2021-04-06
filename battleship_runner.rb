@@ -7,12 +7,18 @@ require './lib/messages'
 require './lib/computer'
 require './lib/turn'
 
-@board = Board.new
-@cruiser = Ship.new("Cruiser", 3)
-@submarine = Ship.new("Submarine", 2)
-@boats = [@submarine, @cruiser]
-@player = Player.new
 @computer = Computer.new
+@comp_board = Board.new
+@comp_cruiser = Ship.new("Cruiser", 3)
+@comp_submarine = Ship.new("Submarine", 2)
+@comp_boats = [@comp_submarine, @comp_cruiser]
+
+@player = Player.new
+@player_board = Board.new
+@player_cruiser = Ship.new("Cruiser", 3)
+@player_submarine = Ship.new("Submarine", 2)
+@player_boats = [@player_submarine, @player_cruiser]
+
 @game = Game.new
 @turn = Turn.new
 @messages = Messages.new
@@ -28,41 +34,99 @@ require './lib/turn'
   end
 
   def setup
-  puts @messages.place_ship_message
-     @board.render + "\n"
+  p @messages.place_ship_message + "\n" + "\n" + "Human_board" + "\n" +
+     @player_board.render #+ "\n"
+
   end
 
-  def computer_place_ships
-    choice = []
-    until @board.valid_placement?(boat, choice) == true
-      @boats.each do |boat|
-        choice.push(@board.cells.keys.sample(boat.length))
+  def computer_places_cruiser ########
+    choices = []
+
+    until @comp_board.valid_placement?(@comp_cruiser, choices) == true
+      choices = @comp_board.cells.keys.sample(3)
+    end
+    @comp_board.place(@comp_cruiser, choices)
+    @comp_board.render(true)
+  end
+
+  def computer_places_submarine #######
+    choices = []
+    until @comp_board.valid_placement?(@comp_submarine, choices) == true
+      choices = @comp_board.cells.keys.sample(2)
+    end
+    @comp_board.place(@comp_submarine, choices)
+    @comp_board.render(true)
+  end
+
+  def computer_place_both_ships #######
+    computer_places_cruiser &&
+    computer_places_submarine
+    @comp_board.render(true)
+  end
+################### now into human land
+
+  def player_places_cruiser
+    @choice_count = 0
+    until @choice_count == 1
+      @user_input = gets.chomp.upcase.split
+      # if @user_input !=
+      if @player_board.valid_placement?(@player_cruiser, @user_input) == true
+        @player_board.place(@player_cruiser, @user_input)
+        @choice_count += 1
+      # elsif @user_input != @player_board.cells.keys
+      #  "try again"
+      else
+        p @messages.invalid_placement_message
+        @user_input = gets.chomp.upcase.split
       end
     end
-    choice
+      @player_board.render(true)
+  end
+  # end
+
+  def player_places_submarine
+
+    @choice_count = 0
+    until @choice_count == 1
+      @user_input = gets.chomp.upcase.split
+      if @player_board.valid_placement?(@player_submarine, @user_input) == true
+        @player_board.place(@player_submarine, @user_input)
+        @choice_count += 1
+      #elsif @user_input != @player_board.cells.keys
+      #  "try again"
+      else
+        p @messages.invalid_placement_message
+      end
+    end
+      @player_board.render(true)
+  end
+
+  def player_place_both_ships
+    player_places_cruiser &&
+    player_places_submarine
+    @player_board.render(true)
+  end
+
+  def make_it_purty ### add me in later!!!
+    + "\n" + "================================" + "\n" +  "\n" +"Skynet board" + "\n" + computer_place_both_ships + "Good luck!"
+  end
+
+  def turn
     require "pry"; binding.pry
   end
-## we are trying to figure out how to get line 37 to have arguments from the each thing 
 
-  #
-  #   @board.render
-  # end
+puts player_place_both_ships
 
-  puts computer_place_ships
+  # puts setup + computer_place_both_ships
 
-  # def start
-  #   #start should render the board
-  #  puts @messages.welcome_message +
-  #   @messages.printz
-  #   response = gets.chomp
-  #   if response == 'p'
-  #   #do game stuff
-  #   # elsif response == 'q'
-  #   #   @messages.quit_message
-  #   end
-  #   # # response
-  # end
-  #
+
+
+
+
+
+
+
+
   #
   #   def turn_loop
   #     until game.winner
