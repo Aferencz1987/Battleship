@@ -9,21 +9,28 @@ require './lib/computer'
 RSpec.describe Game do
   it 'exists' do
     game = Game.new
+
     expect(game).to be_instance_of(Game)
-    expect(game.start).to eq("test failure")
-  end
-
-  it 'determines winner' do
-
   end
 
 
+
+  it 'ends game' do
+    game = Game.new
+    player_cruiser = Ship.new("Cruiser", 3)
+    player_submarine = Ship.new("Submarine", 2)
+    @comp_cruiser = Ship.new("Cruiser", 3)
+    @comp_submarine = Ship.new("Submarine", 2)
+    @comp_submarine.hit
+    expect(game.game_over?).to eq(false)
+    @comp_submarine.hit
+    @comp_cruiser.hit
+    @comp_cruiser.hit
+    @comp_cruiser.hit
+    expect(@comp_cruiser.sunk?).to eq(true)
+    expect(@comp_submarine.sunk?).to eq(true)
+
+  require "pry"; binding.pry
+    expect(@game.game_over?).to eq(true)
+  end
 end
-
-# it 'places computer selection' do
-#   game = Game.new
-#   computer = Computer.new
-#   submarine = Ship.new("Submarine", 2)
-#   board = Board.new
-#   expect(game.computer_place(submarine, ["C4","D4"])).to eq("blah")
-# end
