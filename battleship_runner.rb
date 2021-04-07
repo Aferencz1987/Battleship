@@ -24,7 +24,7 @@ require './lib/turn'
 @messages = Messages.new
 
   def start
-  p @messages.welcome_message
+   p @messages.welcome_message
     @response = gets.chomp
     if @response.downcase == 'p'
       setup
@@ -34,9 +34,21 @@ require './lib/turn'
   end
 
   def setup
-  p @messages.place_ship_message + "\n" + "\n" + "Human_board" + "\n" +
-     @player_board.render #+ "\n"
+  puts @messages.place_ship_message + "\n" + "\n" + "Sample Board" + "\n" +
+     @player_board.render + "\n"
+     puts player_place_both_ships
+     computer_place_both_ships
 
+  end
+
+
+
+
+  def computer_place_both_ships #######
+    computer_places_cruiser +
+    computer_places_submarine
+    puts "COMPUTER BOARD"
+    puts @comp_board.render(true)
   end
 
   def computer_places_cruiser ########
@@ -46,7 +58,7 @@ require './lib/turn'
       choices = @comp_board.cells.keys.sample(3)
     end
     @comp_board.place(@comp_cruiser, choices)
-    @comp_board.render(true)
+    #@comp_board.render(true)
   end
 
   def computer_places_submarine #######
@@ -55,126 +67,118 @@ require './lib/turn'
       choices = @comp_board.cells.keys.sample(2)
     end
     @comp_board.place(@comp_submarine, choices)
-    @comp_board.render(true)
+  #  @comp_board.render(true)
   end
 
-  def computer_place_both_ships #######
-    computer_places_cruiser &&
-    computer_places_submarine
-    @comp_board.render(true)
+  def computer_shoots
+    # sleep(2)
+    @shot_input = @player_board.cells.keys.sample
+    if @player_board.cells[@shot_input].fired_upon? == false
+    @player_board.cells[@shot_input].fire_upon
+  else
+    @shot_input = @player_board.cells.keys.sample
+    @player_board.cells[@shot_input].fire_upon
   end
+    #something about cell.fired_upon? == false
+    # require "pry"; binding.pry
+    if @player_board.cells[@shot_input].render == "M"
+      "My shot on #{@shot_input} was a miss"
+    elsif @player_board.cells[@shot_input].render == "H"
+      "My shot on #{@shot_input} was a hit"
+    elsif @player_board.cells[@shot_input].ship.sunk? == true
+      "I sunk your #{@player_board.cells[@shot_input].ship.name}"
+    end
+  end
+
 ################### now into human land
-
-  def player_places_cruiser
-    @choice_count = 0
-    until @choice_count == 1
-      @user_input = gets.chomp.upcase.split
-      # if @user_input !=
-      if @player_board.valid_placement?(@player_cruiser, @user_input) == true
-        @player_board.place(@player_cruiser, @user_input)
-        @choice_count += 1
-      # elsif @user_input != @player_board.cells.keys
-      #  "try again"
-      else
-        p @messages.invalid_placement_message
-        @user_input = gets.chomp.upcase.split
-      end
-    end
-      @player_board.render(true)
-  end
-  # end
-
-  def player_places_submarine
-
-    @choice_count = 0
-    until @choice_count == 1
-      @user_input = gets.chomp.upcase.split
-      if @player_board.valid_placement?(@player_submarine, @user_input) == true
-        @player_board.place(@player_submarine, @user_input)
-        @choice_count += 1
-      #elsif @user_input != @player_board.cells.keys
-      #  "try again"
-      else
-        p @messages.invalid_placement_message
-      end
-    end
-      @player_board.render(true)
-  end
-
   def player_place_both_ships
-    player_places_cruiser &&
+    player_places_cruiser
     player_places_submarine
+    puts "PLAYER BOARD"
     @player_board.render(true)
   end
 
-  def make_it_purty ### add me in later!!!
-    + "\n" + "================================" + "\n" +  "\n" +"Skynet board" + "\n" + computer_place_both_ships + "Good luck!"
+  def player_places_cruiser
+     puts "Enter 3 consecutive coordinates to place your cruiser. Example: A1 A2 A3"
+    @choice_count = 0
+    until @choice_count == 1
+      @user_input = gets.chomp.upcase.split
+      if @player_board.valid_placement?(@player_cruiser, @user_input) == true
+        @player_board.place(@player_cruiser, @user_input)
+        @choice_count += 1
+      elsif
+         puts @messages.invalid_placement_message
+        @user_input = gets.chomp.upcase.split
+      end
+    end
+    #  @player_board.render(true)
+  end
+
+  def player_places_submarine
+    puts "Enter 2 consecutive coordinates to place your submarine. Example: A1 A2"
+    @choice_count = 0
+    until @choice_count == 1
+      @submarine_input = gets.chomp.upcase.split
+      if @player_board.valid_placement?(@player_submarine, @submarine_input) == true
+        @player_board.place(@player_submarine, @submarine_input)
+        @choice_count += 1
+      elsif
+         puts @messages.invalid_placement_message
+         @user_input = gets.chomp.upcase.split
+      end
+    end
+    #  @player_board.render(true)
+  end
+
+  def player_shoots
+    puts 'Enter a coorinate to fire on'
+    @choice_count = 0
+    until @choice_count == 1
+      @shot_input = gets.chomp.upcase
+      if @comp_board.cells[@shot_input].fired_upon? == false
+        @comp_board.cells[@shot_input].fire_upon
+        @choice_count += 1
+        if @comp_board.cells[@shot_input].render == "M"
+           "Your shot on #{@shot_input} was a miss"
+        elsif @comp_board.cells[@shot_input].render == "H"
+           "Your shot on #{@shot_input} was a hit"
+        elsif @comp_board.cells[@shot_input].ship.sunk? == true
+           "You sunk my #{@comp_board.cells[@shot_input].ship.name}"
+        end
+      elsif
+        puts "You've already fired on that coordinate, please try again."
+        @shot_input = gets.chomp.upcase
+      end
+    end
   end
 
   def turn
-    require "pry"; binding.pry
+    until game_over?
+      puts player_shoots
+      puts computer_shoots
+      puts "PLAYER BOARD"
+      puts @player_board.render(true)
+      puts "COMPUTER BOARD"
+      puts @comp_board.render(true)#turn to false
+    end
+    if @comp_submarine.sunk? && @comp_cruiser.sunk? == true
+      puts "You beat me :("
+    elsif @player_submarine.sunk? && @player_cruiser.sunk? == true
+      puts "You never stood a chance!"
+    end
+    start
   end
 
-puts player_place_both_ships
+  def game_over?
+     @comp_submarine.sunk? && @comp_cruiser.sunk? == true ||
+     @player_submarine.sunk? && @player_cruiser.sunk? == true
+  end
+  # refactor to helper method of computer_sunk? and player_sunk?
+  # def make_it_purty ### add me in later!!!
+  #   + "\n" + "================================" + "\n" +  "\n" +"Skynet board" + "\n" + computer_place_both_ships + "Good luck!"
+  # end
+
+puts start
+puts turn
 
   # puts setup + computer_place_both_ships
-
-
-
-
-
-
-
-
-
-  #
-  #   def turn_loop
-  #     until game.winner
-  #       player.shoot
-  #         if valid_coordinate == true
-  #           render && feedback
-  #         else
-  #           error_code
-  #         end
-  #       computer.shoot
-  #         until valid_coordinate == true
-  #           generate_new_shot
-  #         end
-  #         render
-  #       end
-  #     end
-  #   end
-  # end
-  #
-  # d
-  #
-  # def computer_place_submarine
-  #   until @board.valid_placement? == true
-  #     #select the coordinates
-  #   end
-  #     @board.place(submarine, coordinates)
-  #
-  # end
-  #
-  # def computer_place_cruiser
-  #
-  #     @board.place(cruiser, coordinates)
-  # end
-  #
-  # def generate_shot
-  #   @shots = []
-  #   #as it takes a shot, the shot is pushed into shots array
-  #   cells.each do |cell|
-  #     shots.push(cell.keys.sample)
-  #   end
-  #     shots[-1]
-  # end
-  #
-  # def computer_board
-  #   @board.render
-  # end
-  #
-  #
-  # def human_board
-  # #   @board.render(unhide)
-  # # end
