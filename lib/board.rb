@@ -124,7 +124,7 @@ class Board
       "B #{@cells["B1"].render(unhide)} #{@cells["B2"].render(unhide)} #{@cells["B3"].render(unhide)} #{@cells["B4"].render(unhide)} \n" +
       "C #{@cells["C1"].render(unhide)} #{@cells["C2"].render(unhide)} #{@cells["C3"].render(unhide)} #{@cells["C4"].render(unhide)} \n" +
       "D #{@cells["D1"].render(unhide)} #{@cells["D2"].render(unhide)} #{@cells["D3"].render(unhide)} #{@cells["D4"].render(unhide)} \n"
-      # puts board
+
     end
     board
   end

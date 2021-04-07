@@ -4,8 +4,7 @@ class Messages
   end
 
   def welcome_message
-    "Welcome to BATTLESHIP.
-    Enter p to play. Enter q to quit"
+    "Welcome to BATTLESHIP. Enter p to play. Enter q to quit"
   end
 
   def place_ship_message

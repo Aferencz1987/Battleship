@@ -24,12 +24,12 @@ require './lib/turn'
 @messages = Messages.new
 
   def start
-   p @messages.welcome_message
+   puts @messages.welcome_message
     @response = gets.chomp
     if @response.downcase == 'p'
       setup
     elsif @response.downcase == 'q'
-      p @messages.quit_message
+      puts @messages.quit_message
     end
   end
 
@@ -48,7 +48,7 @@ require './lib/turn'
     computer_places_cruiser +
     computer_places_submarine
     puts "COMPUTER BOARD"
-    puts @comp_board.render(true)
+    puts @comp_board.render(false)
   end
 
   def computer_places_cruiser ########
@@ -129,21 +129,27 @@ require './lib/turn'
     end
     #  @player_board.render(true)
   end
+#####NEW
+  def valid_shot_coordinates
+    @comp_board.cells.keys
+  end
 
   def player_shoots
     puts 'Enter a coorinate to fire on'
     @choice_count = 0
     until @choice_count == 1
       @shot_input = gets.chomp.upcase
-      if @comp_board.cells[@shot_input].fired_upon? == false
+      if valid_shot_coordinates.include?(@shot_input) == false
+        puts "Please enter a valid coordinate"
+      elsif @comp_board.cells[@shot_input].fired_upon? == false
         @comp_board.cells[@shot_input].fire_upon
         @choice_count += 1
         if @comp_board.cells[@shot_input].render == "M"
-           "Your shot on #{@shot_input} was a miss"
+           puts "Your shot on #{@shot_input} was a miss"
         elsif @comp_board.cells[@shot_input].render == "H"
-           "Your shot on #{@shot_input} was a hit"
+           puts "Your shot on #{@shot_input} was a hit"
         elsif @comp_board.cells[@shot_input].ship.sunk? == true
-           "You sunk my #{@comp_board.cells[@shot_input].ship.name}"
+           puts "You sunk my #{@comp_board.cells[@shot_input].ship.name}"
         end
       elsif
         puts "You've already fired on that coordinate, please try again."
@@ -152,6 +158,28 @@ require './lib/turn'
     end
   end
 
+    ###################################OLD
+  #   @choice_count = 0
+  #   until @choice_count == 1
+  #     @shot_input = gets.chomp.upcase
+  #     if @comp_board.cells[@shot_input].fired_upon? == false
+  #       @comp_board.cells[@shot_input].fire_upon
+  #       @choice_count += 1
+  #       require "pry"; binding.pry
+  #       if @comp_board.cells[@shot_input].render == "M"
+  #          "Your shot on #{@shot_input} was a miss"
+  #       elsif @comp_board.cells[@shot_input].render == "H"
+  #          "Your shot on #{@shot_input} was a hit"
+  #       elsif @comp_board.cells[@shot_input].ship.sunk? == true
+  #          "You sunk my #{@comp_board.cells[@shot_input].ship.name}"
+  #       end
+  #     elsif
+  #       puts "You've already fired on that coordinate, please try again."
+  #       @shot_input = gets.chomp.upcase
+  #     end
+  #   end
+  # end
+
   def turn
     until game_over?
       puts player_shoots
@@ -159,7 +187,7 @@ require './lib/turn'
       puts "PLAYER BOARD"
       puts @player_board.render(true)
       puts "COMPUTER BOARD"
-      puts @comp_board.render(true)#turn to false
+      puts @comp_board.render(false)#turn to false
     end
     if @comp_submarine.sunk? && @comp_cruiser.sunk? == true
       puts "You beat me :("
@@ -178,6 +206,7 @@ require './lib/turn'
   #   + "\n" + "================================" + "\n" +  "\n" +"Skynet board" + "\n" + computer_place_both_ships + "Good luck!"
   # end
 
+  # puts player_shoots
 puts start
 puts turn
 
