@@ -1,4 +1,5 @@
 class Game
+  attr_reader :comp_boats, :player_boats
   def initialize
     @computer = Computer.new
     @comp_board = Board.new
@@ -41,14 +42,14 @@ class Game
   end
 
   def setup
-  puts @messages.place_ship_message + "\n" + "\n" + "Sample Board" + "\n" +
-     @player_board.render + "\n"
-     puts player_place_both_ships
-     computer_place_both_ships
+    puts @messages.place_ship_message + "\n" + "\n" + "Sample Board" + "\n" +
+    @player_board.render + "\n"
+    puts player_place_both_ships
+    computer_place_both_ships
 
   end
 
-  def computer_place_both_ships #######
+  def computer_place_both_ships
     computer_places_cruiser +
     computer_places_submarine
     puts "COMPUTER BOARD"
@@ -96,7 +97,7 @@ class Game
   end
 
   def player_places_cruiser
-     puts "Enter 3 consecutive coordinates to place your cruiser. Example: A1 A2 A3"
+     puts "Enter 3 consecutive coordinates to place your cruiser. Example: A1 A2 A3. Don't forget the spaces between coordinates!"
     @choice_count = 0
     until @choice_count == 1
       @user_input = gets.chomp.upcase.split
@@ -105,25 +106,22 @@ class Game
         @choice_count += 1
       elsif
          puts @messages.invalid_placement_message
-        @user_input = gets.chomp.upcase.split
       end
     end
   end
 
   def player_places_submarine
-    puts "Enter 2 consecutive coordinates to place your submarine. Example: A1 A2"
+    puts "Enter 2 consecutive coordinates to place your submarine. Example: A1 A2  Don't forget the spaces between coordinates!"
     @choice_count = 0
     until @choice_count == 1
       @submarine_input = gets.chomp.upcase.split
       if @player_board.valid_placement?(@player_submarine, @submarine_input) == true
         @player_board.place(@player_submarine, @submarine_input)
         @choice_count += 1
-      elsif
+      else
          puts @messages.invalid_placement_message
-         @user_input = gets.chomp.upcase.split
       end
     end
-
   end
 
   def valid_shot_coordinates
@@ -172,7 +170,7 @@ class Game
   end
 
   def game_over?
-     @comp_submarine.sunk? && @comp_cruiser.sunk? == true ||
-     @player_submarine.sunk? && @player_cruiser.sunk? == true
+     (@comp_submarine.sunk? && @comp_cruiser.sunk?) ||
+     (@player_submarine.sunk? && @player_cruiser.sunk?)
   end
 end

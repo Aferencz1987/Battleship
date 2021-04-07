@@ -17,7 +17,7 @@ class Cell
   end
 
   def ship_placed?
-    return true if @ship == ship #!!!!!!! Here is the problem if ship/boat stuff is not placed
+    return true if @ship == ship
   end
 
   def fired_upon?

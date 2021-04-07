@@ -116,15 +116,11 @@ class Board
       "B #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render} \n" +
       "C #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render} \n" +
       "D #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render} \n"
-
-
     else
-
       board = "  1 2 3 4 \nA #{@cells["A1"].render(unhide)} #{@cells["A2"].render(unhide)} #{@cells["A3"].render(unhide)} #{@cells["A4"].render(unhide)} \n" +
       "B #{@cells["B1"].render(unhide)} #{@cells["B2"].render(unhide)} #{@cells["B3"].render(unhide)} #{@cells["B4"].render(unhide)} \n" +
       "C #{@cells["C1"].render(unhide)} #{@cells["C2"].render(unhide)} #{@cells["C3"].render(unhide)} #{@cells["C4"].render(unhide)} \n" +
       "D #{@cells["D1"].render(unhide)} #{@cells["D2"].render(unhide)} #{@cells["D3"].render(unhide)} #{@cells["D4"].render(unhide)} \n"
-
     end
     board
   end
