@@ -33,4 +33,6 @@ RSpec.describe Game do
   require "pry"; binding.pry
     expect(@game.game_over?).to eq(true)
   end
+
+  ## valid shot coordinates test??
 end
