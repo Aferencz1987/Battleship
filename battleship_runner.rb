@@ -158,28 +158,6 @@ require './lib/turn'
     end
   end
 
-    ###################################OLD
-  #   @choice_count = 0
-  #   until @choice_count == 1
-  #     @shot_input = gets.chomp.upcase
-  #     if @comp_board.cells[@shot_input].fired_upon? == false
-  #       @comp_board.cells[@shot_input].fire_upon
-  #       @choice_count += 1
-  #       require "pry"; binding.pry
-  #       if @comp_board.cells[@shot_input].render == "M"
-  #          "Your shot on #{@shot_input} was a miss"
-  #       elsif @comp_board.cells[@shot_input].render == "H"
-  #          "Your shot on #{@shot_input} was a hit"
-  #       elsif @comp_board.cells[@shot_input].ship.sunk? == true
-  #          "You sunk my #{@comp_board.cells[@shot_input].ship.name}"
-  #       end
-  #     elsif
-  #       puts "You've already fired on that coordinate, please try again."
-  #       @shot_input = gets.chomp.upcase
-  #     end
-  #   end
-  # end
-
   def turn
     until game_over?
       puts player_shoots
