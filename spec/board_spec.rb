@@ -76,7 +76,6 @@ RSpec.describe Board do
       expect(board.consecutive_check(cruiser, ["A1", "A2", "A3"])).to eq(true)
       expect(board.consecutive_check(cruiser, ["A1", "B1", "C1"])).to eq(true)
       expect(board.consecutive_check(cruiser, ["A1", "C1", "B1"])).to be(false)
-
     end
 
     it 'checks for valid placement' do
@@ -123,7 +122,6 @@ RSpec.describe Board do
       expect(cell_1.ship).to eq(cruiser)
       expect(board.valid_placement?(submarine, ["A1", "B1"])).to eq(false)
     end
-
 
     it 'will detect overlap' do
       board = Board.new

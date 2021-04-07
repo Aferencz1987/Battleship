@@ -5,7 +5,6 @@ require './lib/player'
 require './lib/game'
 require './lib/messages'
 require './lib/computer'
-require './lib/turn'
 
 @game = Game.new
 

@@ -13,24 +13,17 @@ RSpec.describe Game do
     expect(game).to be_instance_of(Game)
   end
 
-
-
   it 'ends game' do
     game = Game.new
-    player_cruiser = Ship.new("Cruiser", 3)
-    player_submarine = Ship.new("Submarine", 2)
-    @comp_cruiser = Ship.new("Cruiser", 3)
-    @comp_submarine = Ship.new("Submarine", 2)
-    @comp_submarine.hit
-    expect(game.game_over?).to eq(false)
-    @comp_submarine.hit
-    @comp_cruiser.hit
-    @comp_cruiser.hit
-    @comp_cruiser.hit
-    expect(@comp_cruiser.sunk?).to eq(true)
-    expect(@comp_submarine.sunk?).to eq(true)
-
-  require "pry"; binding.pry
-    expect(@game.game_over?).to eq(true)
+    comp_boats = game.comp_boats
+    comp_boats.each do |boat|
+      boat.hit
+      boat.hit
+      boat.hit
+    end
+    
+    expect(comp_boats[0].sunk?).to eq(true)
+    expect(comp_boats[1].sunk?).to eq(true)
+    expect(game.game_over?).to eq(true)
   end
 end
